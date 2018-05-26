@@ -64,12 +64,12 @@ pipeline {
         echo "seven: ${params.Nodes}"
       }
     }
-    stage('six') {
+    stage('eight') {
       when {
         expression { params.Nodes == 'Mac' }
       }
       steps {
-        echo "six: ${params.Nodes}"
+        echo "eight: ${params.Nodes}"
       }
     }
   }
