@@ -1,4 +1,5 @@
 def myVar = 'UNKNOWN'
+def testVar = 'UNKNOWN'
 
 pipeline {
   agent any
@@ -11,16 +12,19 @@ pipeline {
     stage('one') {
       steps {
         sh 'echo vhost > myfile.txt'
+        testVar = ${env.BUILD_NUMBER}
         script {
           // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
         }
         echo "one: ${myVar}" // prints 'hotness'
+        echo "one: ${testVar}"
       }
     }
     stage('two') {
       steps {
         echo "two: ${myVar}" // prints 'vhost'
+        echo "two: ${testVar}"
       }
     }
     // this stage is skipped due to the when expression, so nothing is printed
