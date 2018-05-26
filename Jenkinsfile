@@ -56,5 +56,21 @@ pipeline {
         echo "six: ${params.Versions}"
       }
     }
+    stage('seven') {
+      when {
+        expression { params.Nodes != 'Mac' }
+      }
+      steps {
+        echo "seven: ${params.Nodes}"
+      }
+    }
+    stage('six') {
+      when {
+        expression { params.Nodes == 'Mac' }
+      }
+      steps {
+        echo "six: ${params.Nodes}"
+      }
+    }
   }
 }
