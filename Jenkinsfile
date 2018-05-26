@@ -49,37 +49,5 @@ pipeline {
         echo "four: ${myVar}"
       }
     }
-    stage('five') {
-      when {
-        expression { params.Versions != '3.4' }
-      }
-      steps {
-        echo "five: ${params.Versions}"
-      }
-    }
-    stage('six') {
-      when {
-        expression { params.Versions == '3.4' }
-      }
-      steps {
-        echo "six: ${params.Versions}"
-      }
-    }
-    stage('seven') {
-      when {
-        expression { params.Nodes != 'Mac' }
-      }
-      steps {
-        echo "three: ${params.Nodes}"
-      }
-    }
-    stage('eight') {
-      when {
-        expression { params.Nodes == 'Mac' }
-      }
-      steps {
-        echo "four: ${params.Nodes}"
-      }
-    }
   }
 }
