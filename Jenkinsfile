@@ -21,9 +21,10 @@ pipeline {
       steps {
         sh 'echo vhost > myfile.txt'
         script {
+          // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
         }
-        echo "one: ${myVar}" // prints 'vhost'
+        echo "one: ${myVar}" // prints 'hotness'
       }
     }
     stage('two') {
