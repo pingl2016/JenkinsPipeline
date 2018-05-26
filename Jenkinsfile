@@ -1,3 +1,5 @@
+def myVar = 'UNKNOWN'
+
 pipeline {
   agent any
   stages {
@@ -5,21 +7,20 @@ pipeline {
       steps {
         sh 'echo hotness > myfile.txt'
         script {
-          // trim removes leading and trailing whitespace from the string
-          myVar = readFile('myfile.txt').trim()
+          myVar = sh(returnStdout: true, script: 'echo 0.0.1')
         }
-        echo "one: ${myVar}" // prints 'hotness'
+        echo "one: ${myVar}" // prints '0.0.1'
       }
     }
     stage('two') {
       steps {
-        echo "two: ${myVar}" // prints 'hotness'
+        echo "two: ${myVar}" // prints '0.0.1'
       }
     }
     // this stage is skipped due to the when expression, so nothing is printed
     stage('three') {
       when {
-        expression { myVar != 'hotness' }
+        expression { myVar != '0.0.1' }
       }
       steps {
         echo "three: ${myVar}"
@@ -27,7 +28,7 @@ pipeline {
     }
     stage('four') {
       when {
-        expression { myVar == 'hotness' }
+        expression { myVar == '0.0.1' }
       }
       steps {
         echo "four: ${myVar}"
