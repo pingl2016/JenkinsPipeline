@@ -40,5 +40,21 @@ pipeline {
         echo "four: ${myVar}"
       }
     }
+    stage('five') {
+      when {
+        expression { params.Versions != '3.4' }
+      }
+      steps {
+        echo "five: ${params.Versions}"
+      }
+    }
+    stage('six') {
+      when {
+        expression { params.Versions == '3.4' }
+      }
+      steps {
+        echo "six: ${params.Versions}"
+      }
+    }
   }
 }
