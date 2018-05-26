@@ -7,20 +7,20 @@ pipeline {
       steps {
         sh 'echo hotness > myfile.txt'
         script {
-          myVar = sh(returnStdout: true, script: 'echo 0.0.1')
+          myVar = sh(returnStdout: true, script: 'echo vhost')
         }
-        echo "one: ${myVar}" // prints '0.0.1'
+        echo "one: ${myVar}" // prints 'vhost'
       }
     }
     stage('two') {
       steps {
-        echo "two: ${myVar}" // prints '0.0.1'
+        echo "two: ${myVar}" // prints 'vhost'
       }
     }
     // this stage is skipped due to the when expression, so nothing is printed
     stage('three') {
       when {
-        expression { ${myVar} != '0.0.1' }
+        expression { myVar != 'vhost' }
       }
       steps {
         echo "three: ${myVar}"
@@ -28,7 +28,7 @@ pipeline {
     }
     stage('four') {
       when {
-        expression { ${myVar} == '0.0.1' }
+        expression { myVar == 'vhost' }
       }
       steps {
         echo "four: ${myVar}"
