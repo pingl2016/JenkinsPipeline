@@ -1,19 +1,28 @@
 pipeline {
-  agent any
+  agent { label 'docker' }
   stages {
-    stage('Build') {
+    stage('one') {
       steps {
-        sh 'echo \'Building..\''
+        sh 'echo hotness > myfile.txt'
+        script {
+          // trim removes leading and trailing whitespace from the string
+          myVar = readFile('myfile.txt').trim()
+        }
+        echo "${myVar}" // prints 'hotness'
       }
     }
-    stage('Test') {
+    stage('two') {
       steps {
-        sh 'echo \'Testing..\''
+        echo "${myVar}" // prints 'hotness'
       }
     }
-    stage('Deploy') {
+    // this stage is skipped due to the when expression, so nothing is printed
+    stage('three') {
+      when {
+        expression { myVar != 'hotness' }
+      }
       steps {
-        sh 'echo \'Deploying....\''
+        echo "three: ${myVar}"
       }
     }
   }
