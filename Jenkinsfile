@@ -12,10 +12,10 @@ pipeline {
     stage('one') {
       steps {
         sh 'echo vhost > myfile.txt'
-        testVar = ${env.BUILD_NUMBER}
         script {
           // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
+          testVar = ${env.BUILD_NUMBER}
         }
         echo "one: ${myVar}" // prints 'hotness'
         echo "one: ${testVar}"
