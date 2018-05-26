@@ -8,12 +8,12 @@ pipeline {
           // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
         }
-        echo "${myVar}" // prints 'hotness'
+        echo "one: ${myVar}" // prints 'hotness'
       }
     }
     stage('two') {
       steps {
-        echo "${myVar}" // prints 'hotness'
+        echo "two: ${myVar}" // prints 'hotness'
       }
     }
     // this stage is skipped due to the when expression, so nothing is printed
@@ -23,6 +23,14 @@ pipeline {
       }
       steps {
         echo "three: ${myVar}"
+      }
+    }
+    stage('four') {
+      when {
+        expression { myVar == 'hotness' }
+      }
+      steps {
+        echo "four: ${myVar}"
       }
     }
   }
