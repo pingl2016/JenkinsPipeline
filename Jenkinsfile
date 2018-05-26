@@ -20,7 +20,7 @@ pipeline {
     // this stage is skipped due to the when expression, so nothing is printed
     stage('three') {
       when {
-        expression { myVar != "0.0.1" }
+        expression { ${myVar} != '0.0.1' }
       }
       steps {
         echo "three: ${myVar}"
@@ -28,7 +28,7 @@ pipeline {
     }
     stage('four') {
       when {
-        expression { myVar == "0.0.1" }
+        expression { ${myVar} == '0.0.1' }
       }
       steps {
         echo "four: ${myVar}"
