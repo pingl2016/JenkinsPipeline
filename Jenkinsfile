@@ -1,6 +1,6 @@
 //def myVar = 'UNKNOWN'
 //def testVar = 'UNKNOWN'
-def status = 'Todo' //--> only enabled, make echo "sh: ${status}" this work
+//def status = 'Todo'
 
 pipeline {
   agent any
@@ -69,10 +69,10 @@ pipeline {
       }
       steps {
         echo "four: ${myVar}, ${status}"
-        sh '''
+        sh """
           #!/bin/bash
           echo "sh: ${status}"
-        '''
+        """
       }
     }
     stage('five') {
