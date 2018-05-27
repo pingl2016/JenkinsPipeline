@@ -17,6 +17,15 @@ pipeline {
           // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
           testVar = "${env.BUILD_NUMBER}"
+          retry (2) {
+            sh """
+              #!/bin/bash
+              curl -skL "http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-9/COMPOSE_ID" | grep "404 Not Found" -q
+              if [ $? -eq 0 ]; then
+                exit 1
+              fi
+            """
+          }
         }
         echo "one: ${myVar}" // prints 'hotness'
         echo "one: ${testVar}"
@@ -39,7 +48,6 @@ pipeline {
           }  
           sh """
             #!/bin/bash
-            printenv
             echo "sh: $status"
           """
         }
@@ -63,7 +71,6 @@ pipeline {
         echo "four: ${myVar}, ${status}"
         sh '''
           #!/bin/bash
-          printenv
           echo "sh: ${status}"
         '''
       }
