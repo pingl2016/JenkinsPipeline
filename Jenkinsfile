@@ -39,7 +39,7 @@ pipeline {
           '''
         }
         script {
-          if (${flag}) {
+          if (flag) {
             echo "two: ${flag}"
             exit 1
           }
