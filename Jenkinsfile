@@ -21,7 +21,7 @@ pipeline {
             sh '''
               #!/bin/bash
               curl -skL "http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-9/COMPOSE_ID" | grep "404 Not Found" -q
-              if [ $? -eq 0 ]; then
+              if [ $? -ne 0 ]; then
                 exit 1
               fi
             '''
