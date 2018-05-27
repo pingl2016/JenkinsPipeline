@@ -10,6 +10,17 @@ pipeline {
     string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
   }
   stages {
+    stage("Check whether distro is ready") {
+      steps {
+        checkout(
+          [$class: 'GitSCM', branches: [[name: '*/master']],
+            extensions: [[$class: 'RelativeTargetDirectory',
+              relativeTargetDir: 'kvmqe-ci']],
+            userRemoteConfigs: [[url: "${GERRIT_URL}/kvmqe-ci"]]
+          ]
+        )
+      }
+    }
     stage('one') {
       steps {
         sh 'echo vhost > myfile.txt'
