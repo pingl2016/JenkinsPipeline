@@ -1,6 +1,5 @@
 //def myVar = 'UNKNOWN'
 //def testVar = 'UNKNOWN'
-def flag = true
 
 pipeline {
   agent any
@@ -26,23 +25,18 @@ pipeline {
       steps {
         echo "two: ${myVar}" // prints 'vhost'
         timeout(1) {//unit is mins
-          sh '''
-          while true; do
-            STATUS=`curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS`
-            if [ "$STATUS" = "FINISHED" ]; then
-              flag=flase
+          status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').split("\r?\n")
+          while (true) {
+            if (status == "FINISHED") {
               break
-            else
-              sleep 30
-            fi
-          done
-          '''
-        }
-        script {
-          if (flag) {
-            echo "two: ${flag}"
-            exit 1
+            } else {
+              sleep(30000)
+            }
           }
+        }
+        if (flag) {
+          echo "two: ${flag}"
+          exit 1
         }
         echo "two: ${testVar}, ${flag}"
       }
