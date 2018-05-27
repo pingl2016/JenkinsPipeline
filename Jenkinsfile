@@ -28,7 +28,12 @@ pipeline {
           waitUntil {
             sh '''
             STATUS=`curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS`
-            [ x$STATUS = xFINISHED ] || exit 1
+            if [ "$STATUS" = "FINISHED" ]
+            then
+                exit 0
+            else
+                exit 1
+            fi
             '''
           }
         }
