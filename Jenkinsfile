@@ -24,17 +24,18 @@ pipeline {
     stage('two') {
       steps {
         echo "two: ${myVar}" // prints 'vhost'
-        timeout(60) {//unit is mins
-          waitUntil {
-            sh '''
+        timeout(1) {//unit is mins
+          sh '''
+          while true; do
             STATUS=`curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS`
-            if [ "$STATUS" = "FINISHED" ]
-            then
-                exit 0
+            if [ "$STATUS" = "FINISHED" ]; then
+              exit 0
             else
-                exit 1
+              exit 1
             fi
-            '''
+            sleep 10
+          done
+          '''
           }
         }
         echo "two: ${testVar}"
