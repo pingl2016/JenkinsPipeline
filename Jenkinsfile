@@ -38,7 +38,7 @@ pipeline {
           }
           echo "two: ${status}"
           if (status == "FINISHED") {
-            exit 1
+            return 1
           }
         }
         echo "two: ${testVar}, ${status}"
