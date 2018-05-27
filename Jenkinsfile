@@ -36,7 +36,6 @@ pipeline {
             sleep 10
           done
           '''
-          }
         }
         echo "two: ${testVar}"
       }
