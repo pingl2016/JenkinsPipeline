@@ -27,6 +27,7 @@ pipeline {
         script {
           timeout(1) {//unit: mins
             status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').split("\r?\n")
+            echo "two: ${status}"
             while (true) {
               if (status == "FINISHED") {
                 break
