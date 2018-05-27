@@ -31,16 +31,16 @@ pipeline {
               if (status == "FINISHED") {
                 break
               } else {
-                sleep(30000)
+                sleep(30)
               }
             }
           }
-          if (flag) {
-            echo "two: ${flag}"
+          echo "two: ${status}"
+          if (status == "FINISHED") {
             exit 1
           }
         }
-        echo "two: ${testVar}, ${flag}"
+        echo "two: ${testVar}, ${status}"
       }
     }
     // this stage is skipped due to the when expression, so nothing is printed
