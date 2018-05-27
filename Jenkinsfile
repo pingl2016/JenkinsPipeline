@@ -25,20 +25,20 @@ pipeline {
       steps {
         echo "two: ${myVar}" // prints 'vhost'
         script {
-          timeout(1) {//unit is mins
+          timeout(1) {//unit: mins
             status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').split("\r?\n")
             while (true) {
               if (status == "FINISHED") {
                 break
               } else {
-                sleep(30)
+                sleep(30) //unit: seconds
               }
             }
           }
-          echo "two: ${status}"
-          if (status == "FINISHED") {
-            exit 1
-          }
+        }
+        echo "two: ${status}"
+        if (status == "FINISHED") {
+          exit 1
         }
         echo "two: ${testVar}, ${status}"
       }
