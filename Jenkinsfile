@@ -35,11 +35,10 @@ pipeline {
                 sleep(10) //unit: seconds
               }
             }
-          }
-          echo "two: ${status}"
-          if (status != "FINISHED") {
-            sh 'exit 1'
-          }
+          }  
+          sh '''
+          echo "sh: ${status}"
+          '''
         }
         echo "two: ${testVar}, ${status}"
       }
