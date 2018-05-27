@@ -1,5 +1,6 @@
 //def myVar = 'UNKNOWN'
 //def testVar = 'UNKNOWN'
+def flag = true
 
 pipeline {
   agent any
@@ -29,14 +30,18 @@ pipeline {
           while true; do
             STATUS=`curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS`
             if [ "$STATUS" = "FINISHED" ]; then
-              exit 0
+              flag=flase
+              break
             else
-              exit 1
+              sleep 10
             fi
-            sleep 10
           done
           '''
         }
+        if (flag) {
+          exit 1
+        }
+        
         echo "two: ${testVar}"
       }
     }
