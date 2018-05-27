@@ -26,7 +26,7 @@ pipeline {
         echo "two: ${myVar}" // prints 'vhost'
         echo "two: ${testVar}"
         timeout(60) {
-          sh 'curl -s  http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-7/COMPOSE_ID'
+          sh 'curl -s  http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-9/COMPOSE_ID'
         }
       }
     }
