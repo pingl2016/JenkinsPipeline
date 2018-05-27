@@ -25,7 +25,10 @@ pipeline {
       steps {
         echo "two: ${myVar}" // prints 'vhost'
         timeout(60) {
-          sh 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/COMPOSE_ID'
+          sh '''
+          STATUS=`curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS`
+          [ x$STATUS = xFINISHED ] || exit 1
+          '''
         }
         echo "two: ${testVar}"
       }
