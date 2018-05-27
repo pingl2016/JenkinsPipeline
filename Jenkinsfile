@@ -46,7 +46,7 @@ pipeline {
               }
             }
           }  
-          sh """
+          sh """// cannot be replaced with ''', as $var below
             #!/bin/bash
             echo "sh: $status"
           """
