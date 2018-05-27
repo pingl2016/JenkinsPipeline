@@ -24,10 +24,10 @@ pipeline {
     stage('two') {
       steps {
         echo "two: ${myVar}" // prints 'vhost'
-        echo "two: ${testVar}"
         timeout(60) {
           sh 'curl -s  http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-9/COMPOSE_ID'
         }
+        echo "two: ${testVar}"
       }
     }
     // this stage is skipped due to the when expression, so nothing is printed
