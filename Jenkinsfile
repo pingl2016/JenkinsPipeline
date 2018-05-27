@@ -24,19 +24,21 @@ pipeline {
     stage('two') {
       steps {
         echo "two: ${myVar}" // prints 'vhost'
-        timeout(1) {//unit is mins
-          status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').split("\r?\n")
-          while (true) {
-            if (status == "FINISHED") {
-              break
-            } else {
-              sleep(30000)
+        script {
+          timeout(1) {//unit is mins
+            status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').split("\r?\n")
+            while (true) {
+              if (status == "FINISHED") {
+                break
+              } else {
+                sleep(30000)
+              }
             }
           }
-        }
-        if (flag) {
-          echo "two: ${flag}"
-          exit 1
+          if (flag) {
+            echo "two: ${flag}"
+            exit 1
+          }
         }
         echo "two: ${testVar}, ${flag}"
       }
