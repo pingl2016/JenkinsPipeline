@@ -38,11 +38,12 @@ pipeline {
           done
           '''
         }
-        if (flag) {
-          exit 1
+        script {
+          if (${flag}) {
+            exit 1
+          }
         }
-        
-        echo "two: ${testVar}"
+        echo "two: ${testVar}, ${flag}"
       }
     }
     // this stage is skipped due to the when expression, so nothing is printed
