@@ -1,5 +1,6 @@
 //def myVar = 'UNKNOWN'
 //def testVar = 'UNKNOWN'
+def status = 'Todo'
 
 pipeline {
   agent any
