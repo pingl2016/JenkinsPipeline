@@ -26,13 +26,13 @@ pipeline {
         echo "two: ${myVar}" // prints 'vhost'
         script {
           timeout(1) {//unit: mins
-            status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').trim()
-            echo "two: ${status}"
             while (true) {
+              status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').trim()
+              echo "two: ${status}"
               if (status == "FINISHED") {
                 break
               } else {
-                sleep(30) //unit: seconds
+                sleep(10) //unit: seconds
               }
             }
           }
