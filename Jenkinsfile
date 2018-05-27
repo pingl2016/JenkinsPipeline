@@ -26,7 +26,7 @@ pipeline {
         echo "two: ${myVar}" // prints 'vhost'
         script {
           timeout(1) {//unit: mins
-            status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').split("\r?\n")
+            status = sh(returnStdout: true, script: 'curl -s  http://fileshare.englab.nay.redhat.com/pub/logs/pingl/STATUS').split("\r?\n")(0)
             echo "two: ${status}"
             while (true) {
               if (status == "FINISHED") {
