@@ -59,6 +59,10 @@ pipeline {
       }
       steps {
         echo "four: ${myVar}"
+        sh '''
+          printenv
+          echo "sh: ${status}"
+        '''
       }
     }
     stage('five') {
