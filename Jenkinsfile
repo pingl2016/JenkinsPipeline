@@ -37,10 +37,11 @@ pipeline {
               }
             }
           }  
-          sh '''
+          sh """
+            #!/bin/bash
             printenv
-            echo "sh: ${status}"
-          '''
+            echo "sh: $status"
+          """
         }
         echo "two: ${testVar}, ${status}"
       }
@@ -59,8 +60,9 @@ pipeline {
         expression { myVar == 'vhost' }
       }
       steps {
-        echo "four: ${myVar}"
+        echo "four: ${myVar}, ${status}"
         sh '''
+          #!/bin/bash
           printenv
           echo "sh: ${status}"
         '''
