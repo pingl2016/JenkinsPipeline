@@ -17,7 +17,7 @@ pipeline {
           // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
           testVar = "${env.BUILD_NUMBER}"
-          retry (2) {
+          retry(2) {
             sh """
               #!/bin/bash
               curl -skL "http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-9/COMPOSE_ID" | grep "404 Not Found" -q
