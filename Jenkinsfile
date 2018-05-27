@@ -35,10 +35,10 @@ pipeline {
               }
             }
           }
-        }
-        echo "two: ${status}"
-        if (status == "FINISHED") {
-          exit 1
+          echo "two: ${status}"
+          if (status == "FINISHED") {
+            exit 1
+          }
         }
         echo "two: ${testVar}, ${status}"
       }
