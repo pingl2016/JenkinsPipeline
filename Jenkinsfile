@@ -37,7 +37,8 @@ pipeline {
             }
           }  
           sh '''
-          echo "sh: ${status}"
+            printenv
+            echo "sh: ${status}"
           '''
         }
         echo "two: ${testVar}, ${status}"
