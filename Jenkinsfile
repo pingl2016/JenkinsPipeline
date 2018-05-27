@@ -1,6 +1,6 @@
 //def myVar = 'UNKNOWN'
 //def testVar = 'UNKNOWN'
-//def status = 'Todo'
+def status = 'Todo' //--> only enabled, make echo "sh: ${status}" this work
 
 pipeline {
   agent any
