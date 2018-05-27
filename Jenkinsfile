@@ -33,13 +33,14 @@ pipeline {
               flag=flase
               break
             else
-              sleep 10
+              sleep 30
             fi
           done
           '''
         }
         script {
           if (${flag}) {
+            echo "two: ${flag}"
             exit 1
           }
         }
