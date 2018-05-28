@@ -9,6 +9,7 @@ pipeline {
     choice(name: 'Versions', choices: "3.4\n4.4", description: 'Build for which version?')
     string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
   }
+  stages {
     stage('one') {
       steps {
         sh 'echo vhost > myfile.txt'
