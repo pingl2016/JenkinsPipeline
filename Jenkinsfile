@@ -16,8 +16,7 @@ pipeline {
         script {
           // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
-          url = new URL('http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-8/COMPOSE_ID')
-          data = url.getText('UTF-8')
+          data = new URL('http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-8/COMPOSE_ID').getText('UTF-8')
           testVar = "${env.BUILD_NUMBER}"
           retry(2) {
             sh '''
