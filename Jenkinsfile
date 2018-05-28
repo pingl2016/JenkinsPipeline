@@ -9,24 +9,13 @@ pipeline {
     choice(name: 'Versions', choices: "3.4\n4.4", description: 'Build for which version?')
     string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
   }
-  stages {
-    stage("Check whether distro is ready") {
-      steps {
-        checkout(
-          [$class: 'GitSCM', branches: [[name: '*/master']],
-            extensions: [[$class: 'RelativeTargetDirectory',
-              relativeTargetDir: 'kvmqe-ci']],
-            userRemoteConfigs: [[url: "${GERRIT_URL}/kvmqe-ci"]]
-          ]
-        )
-      }
-    }
     stage('one') {
       steps {
         sh 'echo vhost > myfile.txt'
         script {
           // trim removes leading and trailing whitespace from the string
           myVar = readFile('myfile.txt').trim()
+          def data = new URL('http://download-node-02.eng.bos.redhat.com/rel-eng/latest-RHEL-8/COMPOSE_ID').getText()
           testVar = "${env.BUILD_NUMBER}"
           retry(2) {
             sh '''
@@ -38,6 +27,7 @@ pipeline {
             '''
           }
         }
+        echo "one: ${data}"
         echo "one: ${myVar}" // prints 'hotness'
         echo "one: ${testVar}"
       }
